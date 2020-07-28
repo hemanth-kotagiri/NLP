@@ -1,4 +1,5 @@
 from nltk.corpus import stopwords
+from string import punctuation
 from nltk.tokenize import word_tokenize
 import os
 
@@ -15,20 +16,16 @@ filtered_words = [w for w in words if not w in stop_words]
 
 print(filtered_words)
 
-exit()
 
 # Messing with the text moby dick.
 
+def stop_words_cleaner(text):
+    words = word_tokenize(text)
+    return [w for w in words if w not in stop_words and w not in punctuation]
+
+
 with open(os.getcwd() + "/Data/mobydick.txt") as f:
-    content = f.read().split("\n")
+    content = f.read()
 
-# print(stop_words)
-
-clean_data = ""
-
-for line in content:
-    clean_data += ' '.join((lambda x: [w for w in x.split() if w not in stop_words])(line))
-
-
-print(clean_data)
-
+moby_dick_filtered = stop_words_cleaner(content)
+print(moby_dick_filtered)
